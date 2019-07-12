@@ -8,5 +8,4 @@
 
 #import <UIKit/UIKit.h>
 
-#import "UIViewController+ZREmptyScroll.h"
 #import "UIScrollView+ZRRefresh.h"
