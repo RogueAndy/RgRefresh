@@ -174,8 +174,4 @@ static NSString *key_rg_refresh_centerView = @"key_rg_refresh_centerView";
     return [path stringByAppendingPathComponent:imageName];
 }
 
-- (void)dealloc {
-    NSLog(@"======= 退出界面 UIViewController+ZREmptyScroll");
-}
-
 @end
