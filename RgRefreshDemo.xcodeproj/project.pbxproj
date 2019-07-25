@@ -15,6 +15,7 @@
 		82526B1122C4C8FA0060C462 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82526B0F22C4C8FA0060C462 /* LaunchScreen.storyboard */; };
 		82526B1422C4C8FA0060C462 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 82526B1322C4C8FA0060C462 /* main.m */; };
 		82526B1D22C4C9D50060C462 /* UIScrollView+ZRRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 82526B1C22C4C9D50060C462 /* UIScrollView+ZRRefresh.m */; };
+		825E5A1022E97CE700481F8F /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 825E5A0F22E97CE700481F8F /* TestViewController.m */; };
 		82C5E51522D823D5009A00EE /* UIViewController+ZREmptyScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 82C5E51422D823D5009A00EE /* UIViewController+ZREmptyScroll.m */; };
 		82C5E51722D82E50009A00EE /* RgRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 82C5E51622D82E50009A00EE /* RgRefresh.bundle */; };
 /* End PBXBuildFile section */
@@ -33,6 +34,8 @@
 		82526B1322C4C8FA0060C462 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		82526B1B22C4C9D50060C462 /* UIScrollView+ZRRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+ZRRefresh.h"; sourceTree = "<group>"; };
 		82526B1C22C4C9D50060C462 /* UIScrollView+ZRRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+ZRRefresh.m"; sourceTree = "<group>"; };
+		825E5A0E22E97CE700481F8F /* TestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		825E5A0F22E97CE700481F8F /* TestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		82C5E51322D823D5009A00EE /* UIViewController+ZREmptyScroll.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ZREmptyScroll.h"; sourceTree = "<group>"; };
 		82C5E51422D823D5009A00EE /* UIViewController+ZREmptyScroll.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ZREmptyScroll.m"; sourceTree = "<group>"; };
 		82C5E51622D82E50009A00EE /* RgRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = RgRefresh.bundle; sourceTree = "<group>"; };
@@ -88,6 +91,8 @@
 				82526B0522C4C8FA0060C462 /* AppDelegate.m */,
 				82526B0722C4C8FA0060C462 /* ViewController.h */,
 				82526B0822C4C8FA0060C462 /* ViewController.m */,
+				825E5A0E22E97CE700481F8F /* TestViewController.h */,
+				825E5A0F22E97CE700481F8F /* TestViewController.m */,
 				82526B0A22C4C8FA0060C462 /* Main.storyboard */,
 				82526B0D22C4C8FA0060C462 /* Assets.xcassets */,
 				82526B0F22C4C8FA0060C462 /* LaunchScreen.storyboard */,
@@ -233,6 +238,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				825E5A1022E97CE700481F8F /* TestViewController.m in Sources */,
 				82526B0922C4C8FA0060C462 /* ViewController.m in Sources */,
 				82C5E51522D823D5009A00EE /* UIViewController+ZREmptyScroll.m in Sources */,
 				82526B1D22C4C9D50060C462 /* UIScrollView+ZRRefresh.m in Sources */,

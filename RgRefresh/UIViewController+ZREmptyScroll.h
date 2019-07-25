@@ -7,10 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIScrollView+EmptyDataSet.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIViewController (ZREmptyScroll)
+@interface UIViewController (ZREmptyScroll)<DZNEmptyDataSetDelegate, DZNEmptyDataSetSource>
+
+@property (nonatomic, strong) void (^refreshBlock)(void);
+
+/**
+ table的高度建议 > 600;
+ */
+@property (nonatomic) CGFloat empty_table_height;
 
 /**
  中心点提示的文字信息
@@ -18,16 +26,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSAttributedString *empty_centerTips;
 
 /**
- 以全屏为中心，往上移动则为 负数，往下移动则为正数
- */
-@property (nonatomic) CGFloat empty_centerTips_y;
-
-/**
  中心点提示的图片
  */
 @property (nonatomic, strong) UIImage *empty_centerImg;
 
-- (void)setEmptyDelegate:(UIScrollView *)scroll;
+/**
+ 手动设置代理
+
+ @param scroll 对象
+ */
+- (void)setEmptyDelegate:(UIScrollView *)scroll tableHeight:(CGFloat)tableHeight;
 
 @end
 

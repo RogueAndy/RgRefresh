@@ -5,5 +5,4 @@ target 'RgRefreshDemo' do
   
   pod 'MJRefresh', '3.2.0'
   pod 'DZNEmptyDataSet', '1.8.1'
-
 end
