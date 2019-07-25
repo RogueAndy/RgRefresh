@@ -7,7 +7,7 @@
 //
 
 #import "UIScrollView+ZRRefresh.h"
-#import "MJRefresh.h"
+#import <MJRefresh/MJRefresh.h>
 
 @implementation UIScrollView (ZRRefresh)
 

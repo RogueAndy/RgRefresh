@@ -7,8 +7,10 @@
 //
 
 #import "UIViewController+ZREmptyScroll.h"
+
+#import <MJRefresh/MJRefresh.h>
+
 #import "UIScrollView+ZRRefresh.h"
-#import "MJRefresh.h"
 
 #import <objc/runtime.h>
 #import <objc/message.h>
