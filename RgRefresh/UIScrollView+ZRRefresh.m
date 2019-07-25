@@ -8,20 +8,33 @@
 
 #import "UIScrollView+ZRRefresh.h"
 #import <MJRefresh/MJRefresh.h>
+#import <Reachability/Reachability.h>
 
 @implementation UIScrollView (ZRRefresh)
 
 #pragma mark - Refresh
 -(void)zr_pullDown:(nullable ZR_PullRefreshBlock)pullDownBlock {
-    
+    __weak typeof(self) weakSelf = self;
     self.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        Reachability *reach = [Reachability reachabilityWithHostname:@"www.baidu.com"];
+        if(!reach.isReachable) {
+            // 没有网络的情况禁止刷新
+            [weakSelf zr_allEndRefreshing];
+            return;
+        }
         pullDownBlock ? pullDownBlock() : nil;
     }];
 }
 
 -(void)zr_pullUp:(nullable ZR_PullRefreshBlock)pullUpBlock{
-    
+    __weak typeof(self) weakSelf = self;
     self.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        Reachability *reach = [Reachability reachabilityWithHostname:@"www.baidu.com"];
+        if(!reach.isReachable) {
+            // 没有网络的情况禁止刷新
+            [weakSelf zr_allEndRefreshing];
+            return;
+        }
         pullUpBlock ? pullUpBlock() : nil;
     }];
 }
