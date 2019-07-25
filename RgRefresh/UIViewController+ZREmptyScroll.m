@@ -163,7 +163,7 @@ static NSString *key_rg_refresh_centerView = @"key_rg_refresh_centerView";
     }
     
     if(self.category_scroll.mj_header && [self.category_scroll respondsToSelector:@selector(zr_headerBeginRefreshing)]) {
-        [self.category_scroll mj_header];
+        [self.category_scroll zr_headerBeginRefreshing];
     }
 }
 
