@@ -23,6 +23,7 @@ static NSString *key_rg_refresh_centerTip = @"key_rg_refresh_centerTip";
 static NSString *key_rg_refresh_tableHeight = @"key_rg_refresh_tableHeight";
 static NSString *key_rg_refresh_centerImg = @"key_rg_refresh_centerImg";
 static NSString *key_rg_refresh_centerView = @"key_rg_refresh_centerView";
+static NSString *key_rg_refresh_shouldShow = @"key_rg_refresh_shouldShow";
 
 @interface UIViewController()
 
@@ -30,11 +31,21 @@ static NSString *key_rg_refresh_centerView = @"key_rg_refresh_centerView";
 
 @property (nonatomic, strong) UIView *center_view;
 
+@property (nonatomic, assign) BOOL shouldShow; // 第一次进去，不会显示空页面
+
 @end
 
 @implementation UIViewController (ZREmptyScroll)
 
 #pragma mark - 分类属性
+
+- (BOOL)shouldShow {
+    return objc_getAssociatedObject(self, &key_rg_refresh_shouldShow);
+}
+
+- (void)setShouldShow:(BOOL)shouldShow {
+    objc_setAssociatedObject(self, &key_rg_refresh_shouldShow, [NSNumber numberWithBool:shouldShow], OBJC_ASSOCIATION_ASSIGN);
+}
 
 - (void (^)(void))refreshBlock {
     return objc_getAssociatedObject(self, &key_rg_refresh_refreshBlock);
@@ -97,9 +108,17 @@ static NSString *key_rg_refresh_centerView = @"key_rg_refresh_centerView";
 
 #pragma mark - Emtpy Scroll
 
+- (BOOL)emptyDataSetShouldDisplay:(UIScrollView *)scrollView {
+    if (!self.shouldShow) {
+        self.shouldShow = true;
+        return false;
+    }
+    return true;
+}
+
 - (UIView *)customViewForEmptyDataSet:(UIScrollView *)scrollView {
     if(!self.center_view) {
-    
+        
         CGFloat tableHeight = self.empty_table_height;
         CGFloat centerX = [[UIScreen mainScreen] bounds].size.width / 2.0;
         CGFloat centerY = tableHeight / 2.0;
