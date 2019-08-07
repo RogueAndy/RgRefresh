@@ -24,6 +24,7 @@ static NSString *key_rg_refresh_tableHeight = @"key_rg_refresh_tableHeight";
 static NSString *key_rg_refresh_centerImg = @"key_rg_refresh_centerImg";
 static NSString *key_rg_refresh_centerView = @"key_rg_refresh_centerView";
 static NSString *key_rg_refresh_shouldShow = @"key_rg_refresh_shouldShow";
+static NSString *key_rg_refresh_isDataNoWrong = @"key_rg_refresh_isDataNoWrong";
 
 @interface UIViewController()
 
@@ -39,8 +40,18 @@ static NSString *key_rg_refresh_shouldShow = @"key_rg_refresh_shouldShow";
 
 #pragma mark - 分类属性
 
+- (BOOL)isDataNoWrong {
+    NSNumber *number = objc_getAssociatedObject(self, &key_rg_refresh_isDataNoWrong);
+    return [number boolValue];
+}
+
+- (void)setIsDataNoWrong:(BOOL)isDataNoWrong {
+    objc_setAssociatedObject(self, &key_rg_refresh_isDataNoWrong, [NSNumber numberWithBool:isDataNoWrong], OBJC_ASSOCIATION_ASSIGN);
+}
+
 - (BOOL)shouldShow {
-    return objc_getAssociatedObject(self, &key_rg_refresh_shouldShow);
+    NSNumber *number = objc_getAssociatedObject(self, &key_rg_refresh_shouldShow);
+    return [number boolValue];
 }
 
 - (void)setShouldShow:(BOOL)shouldShow {
@@ -117,14 +128,15 @@ static NSString *key_rg_refresh_shouldShow = @"key_rg_refresh_shouldShow";
 }
 
 - (UIView *)customViewForEmptyDataSet:(UIScrollView *)scrollView {
+    
+    CGFloat tableHeight = self.empty_table_height;
+    CGFloat centerX = [[UIScreen mainScreen] bounds].size.width / 2.0;
+    CGFloat centerY = tableHeight / 2.0;
+    if(tableHeight == 0) {
+        return [UIView new];
+    }
+    
     if(!self.center_view) {
-        
-        CGFloat tableHeight = self.empty_table_height;
-        CGFloat centerX = [[UIScreen mainScreen] bounds].size.width / 2.0;
-        CGFloat centerY = tableHeight / 2.0;
-        if(tableHeight == 0) {
-            return [UIView new];
-        }
         
         self.center_view = [[UIView alloc] init];
         self.center_view.backgroundColor = [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1.0];
@@ -138,6 +150,7 @@ static NSString *key_rg_refresh_shouldShow = @"key_rg_refresh_shouldShow";
         }
         
         UILabel *lab = [UILabel new];
+        lab.tag = 71002;
         lab.frame = CGRectMake(0, 0, centerX * 2, 20);
         lab.center = CGPointMake(centerX, centerY - ZR_refresh_scroll_matching_scale * 30);
         lab.attributedText = attString;
@@ -147,6 +160,7 @@ static NSString *key_rg_refresh_shouldShow = @"key_rg_refresh_shouldShow";
         
         // 显示图片
         UIImageView *imgView = [UIImageView new];
+        imgView.tag = 71003;
         imgView.frame = CGRectMake(0, 0, ZR_refresh_scroll_matching_scale * 160, ZR_refresh_scroll_matching_scale * 130);
         UIImage *img = [UIImage imageNamed:[self imageName:@"empty_nodata"]];
         if(self.empty_centerImg) {
@@ -159,6 +173,7 @@ static NSString *key_rg_refresh_shouldShow = @"key_rg_refresh_shouldShow";
         
         // 刷新按钮
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.tag = 71004;
         btn.frame = CGRectMake(0, 0, ZR_refresh_scroll_matching_scale * 80, ZR_refresh_scroll_matching_scale * 26);
         btn.center = CGPointMake(centerX, lab.center.y + ZR_refresh_scroll_matching_scale * 70);
         btn.layer.masksToBounds = true;
@@ -169,6 +184,25 @@ static NSString *key_rg_refresh_shouldShow = @"key_rg_refresh_shouldShow";
         [btn setTitle:@"刷新一下" forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.center_view addSubview:btn];
+    }
+    
+    if(self.isDataNoWrong) {
+        
+        UILabel *lab = [self.center_view viewWithTag:71002];
+        UIImageView *img = [self.center_view viewWithTag:71003];
+        UIButton *btn = [self.center_view viewWithTag:71004];
+        
+        lab.center = CGPointMake(centerX, centerY + ZR_refresh_scroll_matching_scale * 30);
+        img.center = CGPointMake(centerX, lab.center.y - ZR_refresh_scroll_matching_scale * 80);
+        btn.hidden = true;
+    } else {
+        UILabel *lab = [self.center_view viewWithTag:71002];
+        UIImageView *img = [self.center_view viewWithTag:71003];
+        UIButton *btn = [self.center_view viewWithTag:71004];
+        
+        lab.center = CGPointMake(centerX, centerY - ZR_refresh_scroll_matching_scale * 30);
+        img.center = CGPointMake(centerX, lab.center.y - ZR_refresh_scroll_matching_scale * 80);
+        btn.hidden = false;
     }
     
     return self.center_view;

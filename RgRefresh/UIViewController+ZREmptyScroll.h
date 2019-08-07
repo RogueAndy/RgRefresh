@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (ZREmptyScroll)<DZNEmptyDataSetDelegate, DZNEmptyDataSetSource>
 
+@property (nonatomic, assign) BOOL isDataNoWrong;// 是否是数据异常
+
 @property (nonatomic, strong) void (^refreshBlock)(void);
 
 /**
@@ -32,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  手动设置代理
-
+ 
  @param scroll 对象
  */
 - (void)setEmptyDelegate:(UIScrollView *)scroll tableHeight:(CGFloat)tableHeight;
