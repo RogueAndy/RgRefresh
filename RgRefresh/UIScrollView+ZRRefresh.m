@@ -19,6 +19,9 @@
         Reachability *reach = [Reachability reachabilityWithHostname:@"www.baidu.com"];
         if(!reach.isReachable) {
             // 没有网络的情况禁止刷新
+            if([weakSelf isKindOfClass:[UITableView class]] || [weakSelf isKindOfClass:[UICollectionView class]]) {
+                [(UITableView *)weakSelf reloadData];
+            }
             [weakSelf zr_allEndRefreshing];
             return;
         }
