@@ -63,7 +63,7 @@ static NSString *key_rg_refresh_isDataNoWrong = @"key_rg_refresh_isDataNoWrong";
 }
 
 - (void)setRefreshBlock:(void (^)(void))refreshBlock {
-    objc_setAssociatedObject(self, &key_rg_refresh_refreshBlock, refreshBlock, OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, &key_rg_refresh_refreshBlock, refreshBlock, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (UIScrollView *)category_scroll {
@@ -71,7 +71,7 @@ static NSString *key_rg_refresh_isDataNoWrong = @"key_rg_refresh_isDataNoWrong";
 }
 
 - (void)setCategory_scroll:(UIScrollView *)category_scroll {
-    objc_setAssociatedObject(self, &key_rg_refresh_scroll, category_scroll, OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, &key_rg_refresh_scroll, category_scroll, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (NSAttributedString *)empty_centerTips {
