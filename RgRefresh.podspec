@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "RgRefresh"
-  s.version      = "0.0.13"
+  s.version      = "0.0.14"
   s.summary      = "刷新刷新组件"
   s.description  = <<-DESC
                     关于刷新组件
@@ -16,6 +16,7 @@ Pod::Spec.new do |s|
 
   s.source_files  = "RgRefresh/*"
   s.public_header_files = "RgRefresh/*.h"
+  s.resource = "RgRefresh/RgRefresh.bundle"
 
   s.frameworks = "UIKit", "Foundation"
   s.requires_arc = true
