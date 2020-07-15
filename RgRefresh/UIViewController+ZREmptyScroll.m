@@ -11,7 +11,7 @@
 #import <MJRefresh/MJRefresh.h>
 
 #import "UIScrollView+ZRRefresh.h"
-
+#import <Reachability/Reachability.h>
 #import <objc/runtime.h>
 #import <objc/message.h>
 
@@ -40,13 +40,12 @@ static NSString *key_rg_refresh_isDataNoWrong = @"key_rg_refresh_isDataNoWrong";
 
 #pragma mark - 分类属性
 
-- (BOOL)isDataNoWrong {
-    NSNumber *number = objc_getAssociatedObject(self, &key_rg_refresh_isDataNoWrong);
-    return [number boolValue];
+- (ZREmptyScrollType)isDataNoWrong {
+    return [objc_getAssociatedObject(self, &key_rg_refresh_isDataNoWrong) integerValue];
 }
 
-- (void)setIsDataNoWrong:(BOOL)isDataNoWrong {
-    objc_setAssociatedObject(self, &key_rg_refresh_isDataNoWrong, [NSNumber numberWithBool:isDataNoWrong], OBJC_ASSOCIATION_ASSIGN);
+- (void)setIsDataNoWrong:(ZREmptyScrollType)isDataNoWrong {
+    objc_setAssociatedObject(self, &key_rg_refresh_isDataNoWrong, @(isDataNoWrong), OBJC_ASSOCIATION_ASSIGN);
 }
 
 - (BOOL)shouldShow {
@@ -186,24 +185,76 @@ static NSString *key_rg_refresh_isDataNoWrong = @"key_rg_refresh_isDataNoWrong";
         [self.center_view addSubview:btn];
     }
     
-    if(self.isDataNoWrong) {
-        
-        UILabel *lab = [self.center_view viewWithTag:71002];
-        UIImageView *img = [self.center_view viewWithTag:71003];
-        UIButton *btn = [self.center_view viewWithTag:71004];
-        
-        lab.center = CGPointMake(centerX, centerY + ZR_refresh_scroll_matching_scale * 30);
-        img.center = CGPointMake(centerX, lab.center.y - ZR_refresh_scroll_matching_scale * 80);
-        btn.hidden = true;
-    } else {
-        UILabel *lab = [self.center_view viewWithTag:71002];
-        UIImageView *img = [self.center_view viewWithTag:71003];
-        UIButton *btn = [self.center_view viewWithTag:71004];
-        
-        lab.center = CGPointMake(centerX, centerY - ZR_refresh_scroll_matching_scale * 30);
-        img.center = CGPointMake(centerX, lab.center.y - ZR_refresh_scroll_matching_scale * 80);
-        btn.hidden = false;
+    UILabel *lab = [self.center_view viewWithTag:71002];
+    UIImageView *img = [self.center_view viewWithTag:71003];
+    UIButton *btn = [self.center_view viewWithTag:71004];
+    NSString *tips = @"";
+    
+    Reachability *reach = [Reachability reachabilityWithHostname:@"www.baidu.com"];
+    if(!reach.isReachable) {
+        /// 没有网络直接拦截，显示无信号哦
+        self.isDataNoWrong = ZREmptyNoSignal;
     }
+    
+    switch (self.isDataNoWrong) {
+        case ZREmptySuccessNoData:
+        {
+            /// 成功但是无数据
+            tips = @"暂无数据";
+            img.image = [UIImage imageNamed:[self imageName:@"empty_wrong"]];
+            btn.hidden = true;
+            
+            lab.center = CGPointMake(centerX, centerY + ZR_refresh_scroll_matching_scale * 30);
+            img.center = CGPointMake(centerX, lab.center.y - ZR_refresh_scroll_matching_scale * 80);
+            btn.center = CGPointMake(centerX, lab.center.y + ZR_refresh_scroll_matching_scale * 70);
+            
+        }
+            break;
+        case ZREmptyFail:
+        {
+            /// 失败
+            tips = @"暂无数据";
+            img.image = [UIImage imageNamed:[self imageName:@"empty_wrong"]];
+            btn.hidden = false;
+            
+            lab.center = CGPointMake(centerX, centerY - ZR_refresh_scroll_matching_scale * 30);
+            img.center = CGPointMake(centerX, lab.center.y - ZR_refresh_scroll_matching_scale * 80);
+            btn.center = CGPointMake(centerX, lab.center.y + ZR_refresh_scroll_matching_scale * 70);
+        }
+            break;
+        case ZREmptyNoSignal:
+        {
+            /// 无信号
+            tips = @"网络不给力，点击重试";
+            img.image = [UIImage imageNamed:[self imageName:@"empty_nosignal"]];
+            btn.hidden = false;
+            
+            lab.center = CGPointMake(centerX, centerY - ZR_refresh_scroll_matching_scale * 30);
+            img.center = CGPointMake(centerX, lab.center.y - ZR_refresh_scroll_matching_scale * 80);
+            btn.center = CGPointMake(centerX, lab.center.y + ZR_refresh_scroll_matching_scale * 70);
+        }
+            break;
+        default:
+        {
+            /// 成功
+            tips = @"暂无数据";
+            img.image = [UIImage imageNamed:[self imageName:@"empty_wrong"]];
+            btn.hidden = true;
+            
+            lab.center = CGPointMake(centerX, centerY + ZR_refresh_scroll_matching_scale * 30);
+            img.center = CGPointMake(centerX, lab.center.y - ZR_refresh_scroll_matching_scale * 80);
+            btn.center = CGPointMake(centerX, lab.center.y + ZR_refresh_scroll_matching_scale * 70);
+            
+        }
+            break;
+    }
+    
+    NSAttributedString *attString = [[NSAttributedString alloc] initWithString:tips attributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1], NSFontAttributeName: [UIFont systemFontOfSize:(ZR_refresh_scroll_matching_scale * 14)]}];
+    if(self.empty_centerTips) {
+        attString = self.empty_centerTips;
+    }
+    lab.attributedText = attString;
+    lab.textAlignment = NSTextAlignmentCenter;
     
     return self.center_view;
 }

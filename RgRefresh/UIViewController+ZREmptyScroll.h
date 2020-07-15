@@ -11,9 +11,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSInteger, ZREmptyScrollType) {
+    ZREmptySuccess = 0,
+    ZREmptySuccessNoData = 1,
+    ZREmptyFail = 2,
+    ZREmptyNoSignal = 3
+};
+
 @interface UIViewController (ZREmptyScroll)<DZNEmptyDataSetDelegate, DZNEmptyDataSetSource>
 
-@property (nonatomic, assign) BOOL isDataNoWrong;// 是否是数据异常
+/// 当前scroll数据类型
+@property (nonatomic) ZREmptyScrollType isDataNoWrong;
 
 @property (nonatomic, strong) void (^refreshBlock)(void);
 
