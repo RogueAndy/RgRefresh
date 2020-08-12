@@ -239,7 +239,7 @@ static NSString *key_rg_refresh_isDataNoWrong = @"key_rg_refresh_isDataNoWrong";
             /// 成功
             tips = @"暂无数据";
             img.image = [UIImage imageNamed:[self imageName:@"empty_wrong"]];
-            btn.hidden = true;
+            btn.hidden = false;
             
             lab.center = CGPointMake(centerX, centerY + ZR_refresh_scroll_matching_scale * 30);
             img.center = CGPointMake(centerX, lab.center.y - ZR_refresh_scroll_matching_scale * 80);
