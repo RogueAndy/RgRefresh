@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "RgRefresh"
-  s.version      = "0.0.16"
+  s.version      = "0.0.17"
   s.summary      = "刷新刷新组件"
   s.description  = <<-DESC
                     关于刷新组件
