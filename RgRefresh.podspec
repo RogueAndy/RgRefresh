@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "RgRefresh"
-  s.version      = "0.0.17"
+  s.version      = "0.0.18"
   s.summary      = "刷新刷新组件"
   s.description  = <<-DESC
                     关于刷新组件
@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
 
   s.frameworks = "UIKit", "Foundation"
   s.requires_arc = true
-  s.dependency "MJRefresh", "3.2.0"
+  s.dependency "MJRefresh", "3.5.0"
   s.dependency "DZNEmptyDataSet", "1.8.1"
   s.dependency "Reachability", "3.2"
 

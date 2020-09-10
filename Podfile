@@ -3,7 +3,7 @@
 
 target 'RgRefreshDemo' do
   
-  pod 'MJRefresh', '3.2.0'
+  pod 'MJRefresh', '3.5.0'
   pod 'DZNEmptyDataSet', '1.8.1'
   pod 'Reachability', '3.2'
 end
